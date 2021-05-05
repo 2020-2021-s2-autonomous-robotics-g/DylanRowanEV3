@@ -17,5 +17,10 @@ ev3 = EV3Brick()
 
 # Write your program here.
 
-US = UltrasonicSensor(Port.S2)
-TS = TouchSensor(Port.S1)
+US = UltrasonicSensor(Port.S1)
+LeftMotor = Motor(port.A, positive_direction=Direction.CLOCKWISE, gears=None)
+RightMotor = Motor(port.B, positive_direction=Direction.CLOCKWISE, gears=None)
+drive = Drivebase(LeftMotor,RightMotor,60,200)
+drive.straight(1000)
+drive.turn(180)
+drive.straight(1000)
