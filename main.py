@@ -15,13 +15,35 @@ from pybricks.media.ev3dev import SoundFile, ImageFile
 # Create your objects here.
 ev3 = EV3Brick()
 
-# Write your program here.
 
+# Write your program here.
+ev3.speaker.beep()
 US = UltrasonicSensor(Port.S1)
-LeftMotor = Motor(port.A, positive_direction=Direction.CLOCKWISE, gears=None)
-RightMotor = Motor(port.B, positive_direction=Direction.CLOCKWISE, gears=None)
-drive = Drivebase(LeftMotor,RightMotor,60,200)
-for x in range(4)
-  drive.straight(1000)
-  drive.stop()
-  drive.turn(90)
+LeftMotor = Motor(Port.A, positive_direction=Direction.CLOCKWISE, gears=None)
+RightMotor = Motor(Port.B, positive_direction=Direction.CLOCKWISE, gears=None)
+SpinMotor = Motor(Port.C, positive_direction=Direction.CLOCKWISE, gears=None)
+drive = DriveBase(LeftMotor,RightMotor, 55, 203)
+
+var = 1
+escape_dist = 800
+escape_ang = 360
+while var > 0:
+    if US.distance() < 500:
+        drive.stop()
+        while US.distance() < escape_dist:
+            drive.drive(100,180)
+            wait(10)
+#            ev3.screen.print(US.distance())
+#            print(US.distance(),',',drive.angle())
+            SpinMotor.run(1080)
+            ev3.speaker.beep()
+#            if drive.angle() > escape_ang:
+#                escape_dist = escape_dist - 200
+#                escape_ang = escape_ang + 360
+#                ev3.speaker.say('adjusting parameters')
+        SpinMotor.stop()
+#        escape_dist = 800
+#        reset_angle
+#        ev3.speaker.play_notes('C5/4_','C6/4')
+    drive.drive(500, 0)
+    print(US.distance())
